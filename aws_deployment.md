@@ -59,7 +59,7 @@
     - The instance state may take a moment to change from "pending" to "running"
 
 
-##### Location: Terminal
+### Location: Terminal
 - Make sure you're in your home directory using `cd ~`
 
 - When you type `ls -a` you will see a folder named .ssh, this is where you want to move your secret key to

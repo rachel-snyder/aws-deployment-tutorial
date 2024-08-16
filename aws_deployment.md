@@ -1,19 +1,19 @@
 # AWS Deployment Tutorial
 
-### Definitions
+## Definitions
 
 | Name              | What it is                                                                 | Why we need it                                                                                                           |
 |-------------------|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | AWS EC2 Instance  | Elastic Compute. A virtual machine (VM) hosted by AWS. Each EC2 instance represents a specific location on the internet (IP address) | To host our Django API, our frontend server (Nginx), and our database. We are renting one of Amazon's VMs.                 
 | Nginx             | Proxy Server that balances HTTP traffic across multiple servers            | To host our React app / Render requests not prefaced by "/api" / Route requests to URL endpoints prefaced by "/api" to Gunicorn (where our Django API is being hosted) |                                   |
-| Gunicorn (Green Unicorn) | Python Web Server Gateway Interface (WSGI) HTTP server / Handles incoming HTTP requests and triggers respective APIViews within Views | To allow Django API to handle multiple simultaneous requests / Avoid Django server dropping requests that are made at the exact same time |
-| AWS Route 53       | Domain Name Service (DNS) / Alias to represent IP address on the internet  | To translate a domain/host name into an IP address                                                                       |
+| Gunicorn (Green Unicorn) | Python Web Server Gateway Interface (WSGI) HTTP server / Handles incoming HTTP requests and triggers respective APIViews within Views | To allow Django API to handle requests including handling multiple simultaneous requests / Avoid Django server dropping requests that are made at the same time |
+| AWS Route 53       | Domain Name Service (DNS) / Alias to represent IP address on the internet  | To translate a domain/host name into an IP address behind the scenes so you can refer to your website by it's name rather than address                                                                       |
 | Certbot           | Client that communicates with the Certificate Authority Let's Encrypt to get HTTPS certificates | To verify the domain from Route 53 is attached to the correct IP address / To have a secure connection (HTTPS rather than HTTP) |
 
 
-### Steps
+## Steps
 
-##### Location: Django settings.py file
+### Location: Django settings.py file
 - Make sure Django Secret Key is in your .env file and use `os.environ.get("SECRET_KEY")` to get it from your settings file. It should not be accessible from any file you are uploading to version control
 
 - Set `DEBUG = False`
@@ -23,7 +23,7 @@
 
 - Set `CORS_ALLOW_ALL_ORIGINS = True` for now. Later you will want to specify only the IP address of your Nginx server but you don't have that info yet
 
-##### Location: Amazon Web Services Website (AWS Management Console)
+### Location: Amazon Web Services Website (AWS Management Console)
 - Create an AWS account
     - You will be asked for some info including a credit card but you will not be charged anything as long as you stay within the free tier
 
@@ -138,7 +138,7 @@
 - To set up Gunicorn, run the following line: `gunicorn project_name.wsgi --bind 0.0.0.0:8000 --daemon`
 
 
-#### Location: utilities.jsx (OPTIONAL BECAUSE WE WILL DO THIS AGAIN LATER ONCE WE MAKE MORE UPDATES)
+### Location: utilities.jsx (OPTIONAL BECAUSE WE WILL DO THIS AGAIN LATER ONCE WE MAKE MORE UPDATES)
 
 - Edit your baseURL so that it reflects the server now hosting our API rather than our local machine. The full line should now look like `baseURL: "http://ip_address:8000/api/" where ip_address is in the form of "ec2-3-45-....com"
     - Push that code to GitHub from your local terminal
@@ -148,7 +148,7 @@
     - Rerun `sudo service nginx restart` to restart the server
     
 
-#### Amazon Web Services Website (AWS Management Console)
+### Amazon Web Services Website (AWS Management Console)
 
 - Search for Route 53 at the top of the page and click on the service
 
@@ -174,7 +174,7 @@
 
 - Click the orange "Create records" button
 
-#### Location: Certbot Website/Terminal
+### Location: Certbot Website/Terminal
 
 - On the Certbot Website [https://certbot.eff.org/] you should see a section that says "My HTTP website is running (Software) on (System)"
     - Choose Nginx and Ubuntu 20

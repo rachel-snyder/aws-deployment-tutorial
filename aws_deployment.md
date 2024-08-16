@@ -4,11 +4,11 @@
 
 | Name              | What it is                                                                 | Why we need it                                                                                                           |
 |-------------------|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| AWS EC2 Instance  | Elastic Compute. A virtual machine (VM) hosted by AWS. Each EC2 instance represents a specific location on the internet (IP address) | To host our Django API, our frontend server (Nginx), and our database. We are renting one of Amazon's VMs.                 
+| Nginx             | Proxy Server that balances HTTP traffic across multiple servers            | To host our React app / Render requests not prefaced by "/api" / Route requests to URL endpoints prefaced by "/api" to Gunicorn (where our Django API is being hosted) |                                   |
+| Gunicorn (Green Unicorn) | Python Web Server Gateway Interface (WSGI) HTTP server / Handles incoming HTTP requests and triggers respective APIViews within Views | To allow Django API to handle multiple simultaneous requests / Avoid Django server dropping requests that are made at the exact same time |
 | AWS Route 53       | Domain Name Service (DNS) / Alias to represent IP address on the internet  | To translate a domain/host name into an IP address                                                                       |
 | Certbot           | Client that communicates with the Certificate Authority Let's Encrypt to get HTTPS certificates | To verify the domain from Route 53 is attached to the correct IP address / To have a secure connection (HTTPS rather than HTTP) |
-| Nginx             | Proxy Server that balances HTTP traffic across multiple servers            | To host our React app / Render requests not prefaced by "/api" / Route requests to URL endpoints prefaced by "/api" to Gunicorn (where our Django API is being hosted) |
-| AWS EC2 Instance  | Elastic Compute. A virtual machine (VM) hosted by AWS. Each EC2 instance represents a specific location on the internet (IP address) | To host our Django API, our frontend server (Nginx), and our database. We are renting one of Amazon's VMs.                                                    |
-| Gunicorn (Green Unicorn) | Python Web Server Gateway Interface (WSGI) HTTP server / Handles incoming HTTP requests and triggers respective APIViews within Views | To allow Django API to handle multiple simultaneous requests / Avoid Django server dropping requests that are made at the exact same time |
 
 
 ### Steps
